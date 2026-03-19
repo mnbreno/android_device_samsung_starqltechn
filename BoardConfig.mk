@@ -41,7 +41,6 @@ ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
 # Bootloader
-TARGET_BOARD_PLATFORM := sdm845
 TARGET_BOOTLOADER_BOARD_NAME := starqltechn
 TARGET_NO_BOOTLOADER := true
 
@@ -98,8 +97,9 @@ TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_FBE := true
 
-# TWRP
+# TWRP (device tree for use on Android 10 firmware)
 TW_THEME := portrait_hdpi
+TW_MTP_DEVICE := /dev/mtp_usb
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"

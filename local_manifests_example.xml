@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Local manifest to add starqltechn (SM-G9600) android-10 device tree to a TWRP build.
+  Save as .repo/local_manifests/starqltechn.xml in your TWRP build directory (after repo init, before repo sync).
+
+  repo init -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-9.0
+  mkdir -p .repo/local_manifests
+  # Paste this file content into .repo/local_manifests/starqltechn.xml
+  repo sync
+-->
+<manifest>
+  <remote name="github" fetch="https://github.com/" />
+  <project path="device/samsung/starqltechn"
+           name="mnbreno/android_device_samsung_starqltechn"
+           remote="github"
+           revision="android-10" />
+</manifest>
