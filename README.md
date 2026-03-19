@@ -8,7 +8,23 @@ This branch targets devices running **Android 10** firmware. Build with the TWRP
 
 ## Build (Android 10)
 
-### Manifest
+### Option 1: Build script (recommended)
+
+On Linux, from this repo root, run:
+
+```bash
+./scripts/build-twrp.sh
+```
+
+Optional: pass a custom build directory:
+
+```bash
+./scripts/build-twrp.sh /path/to/twrp_build
+```
+
+The script will init the TWRP Omni manifest (twrp-9.0), add this device tree via local manifest, sync, build, and package `recovery.img` into an Odin-ready `.tar` in the build directory under `release/`.
+
+### Option 2: Manual build
 
 Use the minimal TWRP manifest (twrp-9.0). Example:
 
@@ -16,23 +32,34 @@ Use the minimal TWRP manifest (twrp-9.0). Example:
 repo init -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-9.0
 ```
 
-Add this device tree (android-10 branch) and sync:
+Add this device tree (android-10 branch) in `.repo/local_manifests/` (see [local_manifests_example.xml](local_manifests_example.xml)), then:
 
 ```bash
-# In .repo/local_manifests/ (create if needed), add a manifest that includes:
-# <project path="device/samsung/starqltechn" name="mnbreno/android_device_samsung_starqltechn" remote="github" revision="android-10" />
 repo sync
-```
-
-Then build:
-
-```bash
 . build/envsetup.sh
 lunch omni_starqltechn-eng
 mka recoveryimage
 ```
 
-The recovery image (or `recovery.img` tar for Odin) will be in the build output.
+Package for Odin from `out/target/product/starqltechn/recovery.img`:
+
+```bash
+tar -cvf twrp-starqltechn-android10.tar recovery.img
+```
+
+---
+
+## Releases
+
+After building, create a **GitHub Release** and attach the built `.tar` so others can download it:
+
+1. Go to [Releases](https://github.com/mnbreno/android_device_samsung_starqltechn/releases) → **Create a new release**.
+2. Choose a tag (e.g. `v1.0-android10`) and title (e.g. "TWRP starqltechn Android 10").
+3. Upload the Odin `.tar` from `twrp_build/release/` (or your build dir) as a release asset.
+4. Publish the release.
+
+With [GitHub CLI](https://cli.github.com/):  
+`gh release create v1.0-android10 path/to/twrp-starqltechn-android10-*.tar --title "TWRP starqltechn Android 10"`
 
 ### Kernel
 
