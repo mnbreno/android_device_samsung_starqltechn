@@ -61,6 +61,22 @@ After building, create a **GitHub Release** and attach the built `.tar` so other
 With [GitHub CLI](https://cli.github.com/):  
 `gh release create v1.0-android10 path/to/twrp-starqltechn-android10-*.tar --title "TWRP starqltechn Android 10"`
 
+---
+
+## Next steps (build and release a TWRP build)
+
+1. **Use a Linux build machine** (or WSL/VM) with enough disk (~50 GB+ free) and install:
+   - [Android repo tool](https://source.android.com/docs/setup/start#installing-repo): `sudo apt install repo` (or install manually and add to PATH).
+   - JDK 8 or 11, `git`, `python2` (twrp-9.0 may need it), and other [AOSP build dependencies](https://source.android.com/docs/setup/start/requirements).
+2. **Clone this repo and run the build:**
+   ```bash
+   git clone https://github.com/mnbreno/android_device_samsung_starqltechn.git
+   cd android_device_samsung_starqltechn
+   git checkout android-10
+   ./scripts/build-twrp.sh
+   ```
+3. **When the build finishes**, the Odin `.tar` is in `twrp_build/release/`. Create a [new GitHub Release](https://github.com/mnbreno/android_device_samsung_starqltechn/releases/new), choose a tag (e.g. `v1.0-android10`), and upload that `.tar` as an asset.
+
 ### Kernel
 
 Prebuilt kernel is included. To build from source:
